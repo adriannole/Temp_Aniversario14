@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz 6º Aniversario - Adrián y Johanna</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts for romantic typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Custom styles for typography and animations */
+        body {
+            background-color: #121212;
+            color: #E0E0E0;
+            font-family: 'Lato', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Scroll-driven animation setup */
+        .reveal {
+            position: relative;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: 1s all ease;
+        }
+
+        .reveal.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Sunflower animation */
+        .sunflower {
+            position: absolute;
+            bottom: -150px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23FFC107" d="M50,10 A40,40 0 0,1 50,90 A40,40 0 0,1 50,10 Z" /><path fill="%23795548" d="M50,30 A20,20 0 0,1 50,70 A20,20 0 0,1 50,30 Z" /><g transform="translate(50,50)"><path fill="%23FFC107" d="M0-45 L10-25 L-10-25 Z" /><path fill="%23FFC107" d="M0-45 L10-25 L-10-25 Z" transform="rotate(45)" /><path fill="%23FFC107" d="M0-45 L10-25 L-10-25 Z" transform="rotate(90)" /><path fill="%23FFC107" d="M0-45 L10-25 L-10-25 Z" transform="rotate(135)" /><path fill="%23FFC107" d="M0-45 L10-25 L-10-25 Z" transform="rotate(180)" /><path fill="%23FFC107" d="M0-45 L10-25 L-10-25 Z" transform="rotate(225)" /><path fill="%23FFC107" d="M0-45 L10-25 L-10-25 Z" transform="rotate(270)" /><path fill="%23FFC107" d="M0-45 L10-25 L-10-25 Z" transform="rotate(315)" /></g></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: rise linear infinite;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-120vh) rotate(360deg);
+            }
+        }
+
+        /* Pulsing effect for the final button */
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 20px 10px rgba(220, 38, 38, 0);
+            }
+        }
+        .animate-pulse-red {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Custom scrollbar for a polished look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #212121;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #991b1b; /* deep red */
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b91c1c;
+        }
+    </style>
+</head>
+<body class="bg-black">
+
+    <!-- Background Music -->
+    <audio id="background-music" loop>
+        <!-- Royalty-free romantic music -->
+        <source src="https://www.bensound.com/bensound-music/bensound-romance.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <!-- Music Toggle Button -->
+    <button id="music-toggle" class="fixed bottom-5 right-5 z-50 bg-red-800 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-red-700 transition-all duration-300">
+        <i id="music-icon" class="fas fa-play"></i>
+    </button>
+
+    <!-- Container for animated sunflowers -->
+    <div id="sunflower-container" class="fixed top-0 left-0 w-full h-full pointer-events-none"></div>
+
+    <div class="relative z-10">
+
+        <!-- Section 0: Hero / Intro -->
+        <section class="h-screen flex flex-col items-center justify-center text-center p-4">
+            <div class="reveal active">
+                <h1 class="text-5xl md:text-7xl font-bold text-white">Adrián & Johanna</h1>
+                <h2 class="text-3xl md:text-4xl text-red-700 mt-4">6 Años de Amor y Fe</h2>
+                <p class="mt-8 text-lg text-gray-300">Un viaje a través de nuestros recuerdos.</p>
+                <div class="mt-12 text-2xl animate-bounce">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: The Beginning -->
+        <section class="min-h-screen flex items-center justify-center py-20 px-4">
+            <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center reveal">
+                <div class="text-center md:text-left">
+                    <h3 class="text-4xl text-red-700">Año 1: Nuestro Comienzo</h3>
+                    <p class="mt-4 text-xl text-gray-300">Donde todo empezó. Nuestros caminos se cruzaron en la iglesia, bajo la mirada de Dios. Un encuentro que cambiaría nuestras vidas para siempre.</p>
+                </div>
+                <div class="flex justify-center items-center h-64 md:h-80">
+                    <!-- SVG Illustration: Meeting at church -->
+                    <svg viewBox="0 0 200 150" class="w-full h-full">
+                        <path d="M90 50 L110 50 L110 30 L120 30 L100 10 L80 30 L90 30 Z" fill="none" stroke="#E0E0E0" stroke-width="2"/>
+                        <rect x="70" y="50" width="60" height="80" fill="none" stroke="#E0E0E0" stroke-width="2"/>
+                        <rect x="90" y="80" width="20" height="50" fill="#444"/>
+                        <!-- Stick figures -->
+                        <g transform="translate(40, 90)">
+                            <circle cx="10" cy="10" r="5" fill="#E0E0E0"/>
+                            <line x1="10" y1="15" x2="10" y2="35" stroke="#E0E0E0" stroke-width="2"/>
+                            <line x1="0" y1="20" x2="20" y2="20" stroke="#E0E0E0" stroke-width="2"/>
+                            <line x1="10" y1="35" x2="5" y2="50" stroke="#E0E0E0" stroke-width="2"/>
+                            <line x1="10" y1="35" x2="15" y2="50" stroke="#E0E0E0" stroke-width="2"/>
+                        </g>
+                        <g transform="translate(140, 90)">
+                            <circle cx="10" cy="10" r="5" fill="#E0E0E0"/>
+                            <line x1="10" y1="15" x2="10" y2="35" stroke="#E0E0E0" stroke-width="2"/>
+                            <line x1="0" y1="20" x2="20" y2="20" stroke="#E0E0E0" stroke-width="2"/>
+                            <line x1="10" y1="35" x2="5" y2="50" stroke="#E0E0E0" stroke-width="2"/>
+                            <line x1="10" y1="35" x2="15" y2="50" stroke="#E0E0E0" stroke-width="2"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Studies -->
+        <section class="min-h-screen flex items-center justify-center py-20 px-4 bg-gray-900/50">
+            <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center reveal">
+                 <div class="flex justify-center items-center h-64 md:h-80 order-last md:order-first">
+                    <!-- SVG Illustration: Studying together -->
+                    <svg viewBox="0 0 200 150" class="w-full h-full">
+                        <path d="M20 120 L180 120 L170 110 L30 110 Z" fill="#6b21a8"/>
+                        <path d="M50 110 L50 80 L60 70 L70 80 L70 110" fill="none" stroke="#E0E0E0" stroke-width="2"/>
+                        <path d="M130 110 L130 80 L140 70 L150 80 L150 110" fill="none" stroke="#E0E0E0" stroke-width="2"/>
+                        <!-- Stick figures -->
+                        <g transform="translate(60, 70)">
+                            <circle cx="10" cy="10" r="5" fill="#E0E0E0"/>
+                            <line x1="10" y1="15" x2="10" y2="35" stroke="#E0E0E0" stroke-width="2"/>
+                            <line x1="0" y1="25" x2="20" y2="30" stroke="#E0E0E0" stroke-width="2"/>
+                        </g>
+                         <g transform="translate(110, 70)">
+                            <circle cx="10" cy="10" r="5" fill="#E0E0E0"/>
+                            <line x1="10" y1="15" x2="10" y2="35" stroke="#E0E0E0" stroke-width="2"/>
+                            <line x1="0" y1="30" x2="20" y2="25" stroke="#E0E0E0" stroke-width="2"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="text-center md:text-left">
+                    <h3 class="text-4xl text-red-700">Año 2: Crecimiento Compartido</h3>
+                    <p class="mt-4 text-xl text-gray-300">Compartimos más que apuntes y libros. Compartimos sueños, risas y largas noches de estudio que fortalecieron nuestra conexión.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: University -->
+        <section class="min-h-screen flex items-center justify-center py-20 px-4">
+            <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center reveal">
+                <div class="text-center md:text-left">
+                    <h3 class="text-4xl text-red-700">Año 3: Apoyo Incondicional</h3>
+                    <p class="mt-4 text-xl text-gray-300">La universidad trajo desafíos, pero siempre fuimos el ancla del otro. Tu apoyo fue mi fuerza en los momentos más difíciles.</p>
+                </div>
+                <div class="flex justify-center items-center h-64 md:h-80">
+                    <!-- SVG Illustration: University support -->
+                    <svg viewBox="0 0 200 150" class="w-full h-full">
+                        <!-- Stick figures holding hands -->
+                        <g transform="translate(70, 70)">
+                           <circle cx="10" cy="10" r="5" fill="#E0E0E0"/>
+                           <line x1="10" y1="15" x2="10" y2="35" stroke="#E0E0E0" stroke-width="2"/>
+                           <line x1="10" y1="20" x2="30" y2="25" stroke="#E0E0E0" stroke-width="2"/>
+                           <line x1="10" y1="35" x2="5" y2="50" stroke="#E0E0E0" stroke-width="2"/>
+                           <line x1="10" y1="35" x2="15" y2="50" stroke="#E0E0E0" stroke-width="2"/>
+                        </g>
+                        <g transform="translate(100, 70)">
+                           <circle cx="10" cy="10" r="5" fill="#E0E0E0"/>
+                           <line x1="10" y1="15" x2="10" y2="35" stroke="#E0E0E0" stroke-width="2"/>
+                           <line x1="10" y1="20" x2="-10" y2="25" stroke="#E0E0E0" stroke-width="2"/>
+                           <line x1="10" y1="35" x2="5" y2="50" stroke="#E0E0E0" stroke-width="2"/>
+                           <line x1="10" y1="35" x2="15" y2="50" stroke="#E0E0E0" stroke-width="2"/>
+                        </g>
+                        <!-- Graduation cap -->
+                        <path d="M50 60 L100 40 L150 60 L100 80 Z" fill="#333"/>
+                        <line x1="125" y1="52" x2="135" y2="42" stroke="#E0E0E0" stroke-width="2"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Outings -->
+        <section class="min-h-screen flex items-center justify-center py-20 px-4 bg-gray-900/50">
+            <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center reveal">
+                <div class="flex justify-center items-center h-64 md:h-80 order-last md:order-first">
+                    <!-- SVG Illustration: Outings -->
+                    <svg viewBox="0 0 200 150" class="w-full h-full">
+                        <path d="M0 130 Q 50 90, 100 130 T 200 130" fill="none" stroke="#22c55e" stroke-width="3"/>
+                        <circle cx="170" cy="40" r="15" fill="#facc15"/>
+                        <!-- Stick figures walking -->
+                         <g transform="translate(80, 70)">
+                           <circle cx="10" cy="10" r="5" fill="#E0E0E0"/>
+                           <line x1="10" y1="15" x2="10" y2="35" stroke="#E0E0E0" stroke-width="2"/>
+                           <line x1="10" y1="20" x2="30" y2="20" stroke="#E0E0E0" stroke-width="2"/>
+                           <line x1="10" y1="35" x2="5" y2="50" stroke="#E0E0E0" stroke-width="2"/>
+                           <line x1="10" y1="35" x2="15" y2="45" stroke="#E0E0E0" stroke-width="2"/>
+                        </g>
+                        <g transform="translate(110, 70)">
+                           <circle cx="10" cy="10" r="5" fill="#E0E0E0"/>
+                           <line x1="10" y1="15" x2="10" y2="35" stroke="#E0E0E0" stroke-width="2"/>
+                           <line x1="10" y1="20" x2="-10" y2="20" stroke="#E0E0E0" stroke-width="2"/>
+                           <line x1="10" y1="35" x2="5" y2="45" stroke="#E0E0E0" stroke-width="2"/>
+                           <line x1="10" y1="35" x2="15" y2="50" stroke="#E0E0E0" stroke-width="2"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="text-center md:text-left">
+                    <h3 class="text-4xl text-red-700">Año 4: Creando Aventuras</h3>
+                    <p class="mt-4 text-xl text-gray-300">Cada paseo, cada viaje, cada salida se convirtió en un capítulo de nuestra propia aventura. Coleccionando momentos, no cosas.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Family -->
+        <section class="min-h-screen flex items-center justify-center py-20 px-4">
+            <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center reveal">
+                <div class="text-center md:text-left">
+                    <h3 class="text-4xl text-red-700">Año 5: Uniendo Familias</h3>
+                    <p class="mt-4 text-xl text-gray-300">Nuestro amor creció tanto que ya no era solo nuestro. Se extendió a nuestras familias, uniendo dos mundos en uno solo.</p>
+                </div>
+                <div class="flex justify-center items-center h-64 md:h-80">
+                    <!-- SVG Illustration: Family -->
+                    <svg viewBox="0 0 200 150" class="w-full h-full">
+                        <!-- Family 1 -->
+                        <g transform="translate(10, 80)"><circle cx="10" cy="10" r="5" fill="#aaa"/><line x1="10" y1="15" x2="10" y2="45" stroke="#aaa" stroke-width="2"/></g>
+                        <g transform="translate(30, 80)"><circle cx="10" cy="10" r="5" fill="#aaa"/><line x1="10" y1="15" x2="10" y2="45" stroke="#aaa" stroke-width="2"/></g>
+                        <!-- Couple -->
+                        <g transform="translate(80, 70)"><circle cx="10" cy="10" r="5" fill="#E0E0E0"/><line x1="10" y1="15" x2="10" y2="55" stroke="#E0E0E0" stroke-width="2"/><line x1="10" y1="25" x2="30" y2="25" stroke="#E0E0E0" stroke-width="2"/></g>
+                        <g transform="translate(110, 70)"><circle cx="10" cy="10" r="5" fill="#E0E0E0"/><line x1="10" y1="15" x2="10" y2="55" stroke="#E0E0E0" stroke-width="2"/><line x1="10" y1="25" x2="-10" y2="25" stroke="#E0E0E0" stroke-width="2"/></g>
+                        <!-- Family 2 -->
+                        <g transform="translate(160, 80)"><circle cx="10" cy="10" r="5" fill="#aaa"/><line x1="10" y1="15" x2="10" y2="45" stroke="#aaa" stroke-width="2"/></g>
+                        <g transform="translate(180, 80)"><circle cx="10" cy="10" r="5" fill="#aaa"/><line x1="10" y1="15" x2="10" y2="45" stroke="#aaa" stroke-width="2"/></g>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Faith -->
+        <section class="min-h-screen flex items-center justify-center py-20 px-4 bg-gray-900/50">
+            <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center reveal">
+                <div class="flex justify-center items-center h-64 md:h-80 order-last md:order-first">
+                    <!-- SVG Illustration: Faith -->
+                    <svg viewBox="0 0 200 150" class="w-full h-full">
+                        <!-- Glowing Cross -->
+                        <defs>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="3.5" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        <g filter="url(#glow)">
+                           <line x1="100" y1="30" x2="100" y2="80" stroke="#fef08a" stroke-width="4"/>
+                           <line x1="80" y1="50" x2="120" y2="50" stroke="#fef08a" stroke-width="4"/>
+                        </g>
+                        <!-- Stick figures praying -->
+                        <g transform="translate(70, 80)">
+                           <circle cx="10" cy="10" r="5" fill="#E0E0E0"/>
+                           <line x1="10" y1="15" x2="10" y2="35" stroke="#E0E0E0" stroke-width="2"/>
+                           <path d="M10 25 L 20 30 L 20 40" fill="none" stroke="#E0E0E0" stroke-width="2"/>
+                        </g>
+                        <g transform="translate(110, 80)">
+                           <circle cx="10" cy="10" r="5" fill="#E0E0E0"/>
+                           <line x1="10" y1="15" x2="10" y2="35" stroke="#E0E0E0" stroke-width="2"/>
+                           <path d="M10 25 L 0 30 L 0 40" fill="none" stroke="#E0E0E0" stroke-width="2"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="text-center md:text-left">
+                    <h3 class="text-4xl text-red-700">Año 6: Crecimiento Espiritual</h3>
+                    <p class="mt-4 text-xl text-gray-300">Juntos en el servicio, firmes en la fe. Nuestro amor se ha profundizado al poner a Dios en el centro de todo, creciendo no solo como pareja, sino también en espíritu.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Message & Letter -->
+        <section class="min-h-screen flex flex-col items-center justify-center text-center py-20 px-4">
+            <div class="container mx-auto reveal">
+                <h2 class="text-4xl md:text-5xl text-white leading-tight">Feliz aniversario, Johanna.</h2>
+                <p class="mt-6 text-xl text-gray-300 max-w-3xl mx-auto">Gracias por estos 6 años de amor, fe, apoyo y crecimiento juntos. Vamos por más aventuras, más amor y más Dios en nuestro camino. Te amo, Adrián.</p>
+                
+                <!-- The Letter -->
+                <div class="mt-12 max-w-3xl mx-auto text-left bg-gray-900/50 p-6 md:p-8 rounded-lg shadow-xl border border-gray-700">
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        Feliz Aniversario mi amor ❤️, gracias por estos 6 años juntos que han sido maravillosos a tu lado. He aprendido muchas cosas y me hace muy feliz tenerte. Aún falta celebrarlo en grande jajaja, ¡hay que festejarlo en Manta, nuestro primer viaje largo juntitos! 🌊☀️ Te amo mucho mi amor, gracias por compartir cada momento a tu lado y quiero decirte que siempre voy a estar para ti, para apoyarte, para darte ánimos y sobre todo, siempre acompañarte.
+                        <br><br>
+                        Eres mi vida y quiero compartir todo mi futuro contigo, junto a Dios que nos ha permitido estar juntos porque tiene grandes cosas para nosotros 🙏. Y hay que lograrlo, y lo haremos juntos, porque nosotros nos esforzamos por nuestra relación y para que todo siempre salga bien. Te amo mucho mi amor, ¡tenemos que festejarlo aún en grande! 🥳
+                        <br><br>
+                        ¡Te amo mi preciosa, feliz aniversarioooo mi amoor! 🥰
+                        <br>
+                        Espero te guste mi detalle ♥️
+                    </p>
+                </div>
+
+                <div class="mt-16">
+                    <a href="#future" class="bg-red-800 text-white font-bold py-4 px-8 rounded-lg text-xl hover:bg-red-700 transition-all duration-300 animate-pulse-red">
+                        Nuestro Futuro Juntos <i class="fas fa-heart ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const music = document.getElementById('background-music');
+            const musicToggle = document.getElementById('music-toggle');
+            const musicIcon = document.getElementById('music-icon');
+
+            // Music toggle functionality
+            musicToggle.addEventListener('click', () => {
+                if (music.paused) {
+                    music.play();
+                    musicIcon.classList.remove('fa-play');
+                    musicIcon.classList.add('fa-pause');
+                } else {
+                    music.pause();
+                    musicIcon.classList.remove('fa-pause');
+                    musicIcon.classList.add('fa-play');
+                }
+            });
+
+            // Scroll-reveal animation
+            function reveal() {
+                const reveals = document.querySelectorAll('.reveal');
+                for (let i = 0; i < reveals.length; i++) {
+                    const windowHeight = window.innerHeight;
+                    const elementTop = reveals[i].getBoundingClientRect().top;
+                    const elementVisible = 150; // Distance from bottom to trigger animation
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveals[i].classList.add('active');
+                    } else {
+                        // Optional: remove active class to re-trigger animation on scrddoll up
+                        // reveals[i].classList.remove('active');
+                    }
+                }
+            }
+            window.addEventListener('scroll', reveal);
+            reveal(); // Initial check
+
+            // Sunflower animation
+            const sunflowerContainer = document.getElementById('sunflower-container');
+            const sunflowerCount = 15; // Number of sunflowers
+
+            for (let i = 0; i < sunflowerCount; i++) {
+                const sunflower = document.createElement('div');
+                sunflower.classList.add('sunflower');
+                
+                const size = Math.random() * 80 + 20; // Random size between 20px and 100px
+                sunflower.style.width = `${size}px`;
+                sunflower.style.height = `${size}px`;
+                
+                sunflower.style.left = `${Math.random() * 100}%`; // Random horizontal position
+                
+                const duration = Math.random() * 20 + 15; // Random duration between 15s and 35s
+                sunflower.style.animationDuration = `${duration}s`;
+                
+                const delay = Math.random() * 15; // Random delay
+                sunflower.style.animationDelay = `${delay}s`;
+
+                sunflowerContainer.appendChild(sunflower);
+            }
+        });
+    </script>
+
+</body>
+</html>
