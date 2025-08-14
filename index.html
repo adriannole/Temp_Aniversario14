@@ -26,18 +26,18 @@
             font-family: 'Playfair Display', serif;
             background-color: var(--dark-bg);
             color: var(--elegant-white);
-            overflow: hidden;
+            overflow-x: hidden; /* Previene el scroll horizontal */
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             perspective: 1000px;
         }
 
         /* Contenedor principal y secciones */
         .main-container {
             width: 100%;
-            height: 100%;
+            height: 100vh;
             position: relative;
         }
 
@@ -54,6 +54,7 @@
             transform: scale(0.9);
             transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
             visibility: hidden;
+            text-align: center;
         }
 
         .section.active {
@@ -119,20 +120,21 @@
             font-size: clamp(1rem, 2.5vw, 1.3rem);
             line-height: 1.8;
             text-align: justify;
-            min-height: 200px;
+            min-height: 150px;
         }
 
         .letter-images {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
+            align-items: center;
             margin-top: 30px;
             gap: 15px;
             flex-wrap: wrap;
         }
 
         .letter-images img {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             object-fit: cover;
             border-radius: 50%;
             border: 3px solid var(--main-red);
@@ -154,6 +156,7 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
+            width: 100%;
         }
 
         .message-card {
@@ -217,13 +220,13 @@
 
         /* --- Decoraciones y Animaciones --- */
         .hearts-container {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             overflow: hidden;
-            z-index: 0;
+            z-index: -1;
         }
 
         .heart {
@@ -285,7 +288,7 @@
 
         /* --- Fuegos Artificiales --- */
         .fireworks-container {
-            position: absolute;
+            position: fixed;
             width: 100%;
             height: 100%;
             top: 0;
@@ -312,7 +315,7 @@
                 opacity: 1;
             }
             100% {
-                transform: translateY(-100vh) translateX(calc(20vw * (var(--i) - 0.5)));
+                transform: translateY(-110vh) translateX(calc(20vw * (var(--i) - 0.5)));
                 opacity: 0;
             }
         }
@@ -366,6 +369,76 @@
                 opacity: 0;
             }
         }
+        
+        /* --- Diseño Responsivo para Móviles --- */
+        @media (max-width: 768px) {
+            .section {
+                padding: 15px;
+            }
+
+            .messages-container {
+                flex-direction: column; /* Apila las tarjetas verticalmente */
+                align-items: center;
+                gap: 20px;
+            }
+
+            .message-card {
+                width: 280px; /* Ancho ajustado para móviles */
+                height: 180px;
+            }
+
+            .card-front {
+                font-size: 3.5rem;
+            }
+            
+            .card-back {
+                font-size: 1rem;
+            }
+
+            .letter-images img {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .enter-btn {
+                padding: 12px 30px;
+                font-size: 1.1rem;
+            }
+            
+            .next-btn {
+                margin-top: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #welcome-screen h1 {
+                font-size: clamp(2rem, 15vw, 3rem);
+            }
+            #welcome-screen h2 {
+                font-size: clamp(1rem, 7vw, 1.5rem);
+            }
+            
+            .message-card {
+                width: 90vw; /* Ocupa casi todo el ancho */
+                max-width: 300px;
+                height: 160px;
+            }
+            
+            #final-section h2 {
+                font-size: clamp(1.8rem, 9vw, 3rem);
+            }
+            
+            .music-control {
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .music-control button {
+                width: 45px;
+                height: 45px;
+                font-size: 1.2rem;
+            }
+        }
 
     </style>
 </head>
@@ -393,9 +466,9 @@
                 <p id="letter-text"></p>
                 <div class="letter-images">
                     <!-- Imágenes ilustrativas que aparecen con animación -->
-                    <img src="https://placehold.co/200x200/ff0000/ffffff?text=Playa" alt="Recuerdo en la playa" style="animation-delay: 1s;">
-                    <img src="https://placehold.co/200x200/ff0000/ffffff?text=Abrazo" alt="Recuerdo de un abrazo" style="animation-delay: 1.5s;">
-                    <img src="https://placehold.co/200x200/ff0000/ffffff?text=Familia" alt="Recuerdo en familia" style="animation-delay: 2s;">
+                    <img src="https://placehold.co/200x200/ff0000/ffffff?text=💖" alt="Recuerdo en la playa" style="animation-delay: 1s;">
+                    <img src="https://placehold.co/200x200/ff0000/ffffff?text=✨" alt="Recuerdo de un abrazo" style="animation-delay: 1.5s;">
+                    <img src="https://placehold.co/200x200/ff0000/ffffff?text=💍" alt="Recuerdo en familia" style="animation-delay: 2s;">
                 </div>
                 <button id="to-messages-btn" class="next-btn" style="display: none;">Tengo algo para ti...</button>
             </div>
@@ -473,7 +546,7 @@
             enterBtn.addEventListener('click', () => {
                 showSection('letter-section');
                 if (!isMusicPlaying) {
-                    music.play().catch(e => console.log("La reproducción automática fue bloqueada."));
+                    music.play().catch(e => console.log("La reproducción automática fue bloqueada por el navegador."));
                 }
                 typeWriterEffect();
             });
@@ -488,7 +561,7 @@
             });
 
             // --- Efecto de Máquina de Escribir ---
-            const letterTextContent = "Mi amorcito, gracias por compartir otro mes a tu lado donde hemos experimentado nuevas aventuras... Nuestro compromiso con Dios y con nuestra relación sigue creciendo. Viajar juntos a la playa, sentir tu abrazo todo el camino, conocer la finca y compartir como familia fueron momentos que guardo en mi corazón. Estos recuerdos son más valiosos que cualquier cosa material, porque son eternos. Eres mi vida y mi felicidad. Vamos por muchos meses más y toda una vida juntos. Te amo con todo mi corazón. 💕";
+            const letterTextContent = "Mi amorcito, gracias por compartir otro mes a tu lado donde hemos experimentado nuevas aventuras... Nuestro compromiso con Dios y con nuestra relación sigue creciendo. Viajar juntos a la playa, sentir tu abrazo todo el camino, conocer la finca y compartir como familia fueron momentos que guardo en mi corazón. Estos recuerdos son más valiosos que cualquier cosa material, porque son eternos. Eres mi vida y mi felicidad. Vamos por muchos meses más y toda una vida juntos. Te amo con todo mi corazón. �";
             const letterTextElement = document.getElementById('letter-text');
             let charIndex = 0;
 
@@ -529,7 +602,7 @@
                 const heart = document.createElement('div');
                 heart.classList.add('heart');
                 heart.style.left = `${Math.random() * 100}vw`;
-                heart.style.animationDuration = `${Math.random() * 5 + 5}s`; // Duración entre 5 y 10 segundos
+                heart.style.animationDuration = `${Math.random() * 5 + 8}s`; // Duración entre 8 y 13 segundos
                 heart.style.fontSize = `${Math.random() * 1.5 + 1}rem`; // Tamaño entre 1 y 2.5rem
                 heart.style.setProperty('--i', Math.random());
                 heart.innerHTML = '❤️';
@@ -537,9 +610,9 @@
 
                 setTimeout(() => {
                     heart.remove();
-                }, 10000); // Eliminar el corazón después de 10s
+                }, 13000); // Eliminar el corazón después de 13s
             }
-            setInterval(createHeart, 300); // Crear un nuevo corazón cada 300ms
+            setInterval(createHeart, 500); // Crear un nuevo corazón cada 500ms
 
             // --- Fuegos Artificiales ---
             function triggerFireworks() {
